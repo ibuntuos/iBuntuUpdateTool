@@ -8,12 +8,14 @@ import PySimpleGUI as sg
 import webbrowser as browser
 import os
 import packagelist
-
+import subprocess
 
 sg.theme('LightBlue6')
 WorkPath=os.path.dirname(os.path.realpath(__file__))
 #WorkPath=os.path.dirname(WorkPath)	
-print(WorkPath)
+
+
+#Define Layouts for Frames
 frame_layout = [
                   [sg.T('')],
                   [sg.T('1.'), sg.Radio('Backup your system', "RADIO1", enable_events=True, key='Backup')], 
@@ -49,15 +51,16 @@ frame_layout_Text = [
                ]
 
     
-
+#Define Colums of Labels
 colHeader = [[sg.Image(r''+WorkPath+'/UpdateLogo.png'), sg.Text('iBuntu Update Tool', font=("SF Compact Display", 25), text_color='black'), sg.Image(r''+WorkPath+'/update-icon-18.png')]]
-#colHeader = [[sg.Image(r'/home/bofh85/Schreibtisch/UpdateLogo.png')]]
 colClose = [[sg.Text('			') , sg.Button('Close'), sg.Text('			')]]    
 colClose = [[sg.Text('			') , sg.Button('Close'), sg.Text('			')]]    
 colCopy = [[sg.Text('			') , sg.Text('© 2020  iBuntu OS', font=("Helvetica", 9)), sg.Text('			')]]   
 colURL = [[sg.Text('			') , sg.Text('   iBuntuos.com', font=("Helvetica", 9)), sg.Text('		')]] 
  
 
+
+#Define Main Window-Layout
 layout = [
           [sg.T('')],
           [sg.Column(colHeader)],
@@ -71,7 +74,7 @@ layout = [
          ] 
 
 
-
+#Define Output-Window-Layout
 layout2 = [
 		[sg.Multiline(size=(60, 20), background_color='#A2D2FF', text_color='white', key='textbox')],
 		[sg.Button('Close Window')]
@@ -79,7 +82,7 @@ layout2 = [
 	
  
 
-#Initialize
+#Initialize the whole thing
 
 window = sg.Window('iBuntu Update Tool', layout, font=("Helvetica", 12), finalize=True)
 window.Element('Textlabel_4').update('This tool is for helping you')
@@ -90,6 +93,8 @@ window.Element('Textlabel_9').update('left from Top to Bottom and this tool')
 window.Element('Textlabel_10').update('will guide you through the process')
 window.Element('Textlabel_11').update('with as less effort for you as possible.')
 run=1
+
+
 
 while True:
 	event, values = window.read() 
@@ -161,8 +166,8 @@ while True:
 		window.Element('Textlabel_7').update('Tool ist totally Self-Explaining.')
 		window.Element('Textlabel_8').update('')
 		window.Element('Textlabel_9').update('Press \'OK \' to start the Tool')
-		window.Element('Textlabel_10').update('.')
-		window.Element('Textlabel_11').update('')
+		window.Element('Textlabel_10').update('or download it, if your iBuntu Version')
+		window.Element('Textlabel_11').update('is below 1.3')
 		window.Element('Textlabel_12').update('')
 		window.Element('Textlabel_13').update('')
 		window.Element('Textlabel_14').update('')
@@ -225,7 +230,7 @@ while True:
 				codewindow['textbox'].print("A Backup of your manually installed packages is created.")
 				codewindow['textbox'].print("--------------------------------------------------------")
 				codewindow['textbox'].print("Following manually installed packages exist:")
-				f=open('packages.list.save','w')
+				f=open(os.path.join(WorkPath, "packages.list.save"),'w')
 				for ele in packages:
 					f.write(ele+'\n')
 					codewindow['textbox'].print(ele)
@@ -248,13 +253,18 @@ while True:
 
 
 		if values['Download'] == True:
-			browser.open('http://ibuntuos.com/get-it', new=2)
+			browser.open('https://ibuntuos.com/get-it', new=2)
 
 		if values['Bootstick'] == True:
-			os.system("/etc/balena_etcher/balenaEtcher-1.5.101-x64.AppImage")
+			systemversion=(subprocess.check_output("lsb_release -d | cut -c 21-23" , shell=True, universal_newlines=True)).strip()
+			systemversion = systemversion.replace(".", "")
+			if int(systemversion) < 13:
+				browser.open('https://www.balena.io/etcher/', new=2)
+			else:
+				os.system("/etc/balena_etcher/balenaEtcher-1.5.101-x64.AppImage")
 		
 		if values['Update'] == True:
-			browser.open('http://ibuntuos.com/update', new=2)	
+			browser.open_new(r'file://'+WorkPath+'/iBuntuUpdateTool_Guide.pdf')	
 
 		if values['Restore'] == True:
 			if run ==1:
@@ -274,12 +284,12 @@ while True:
 				else:
 					codewindow['textbox'].print("--------------------------------------------------------")
 					codewindow['textbox'].print("Packagelist found - Restoring started.")
-					result=os.system("gnome-terminal -- xargs -a 'packages.list.save' sudo apt install")
+					result=os.system("gnome-terminal -- xargs -a '"+os.path.join(WorkPath, "packages.list.save")+"' sudo apt install")
 					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
 					codewindow['textbox'].print("After you are done and the Terminal has closed again")
 					codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")
 					codewindow['textbox'].print("========================================================")	
-					os.remove("packages.list.save")	
+					os.remove(os.path.join(WorkPath, "packages.list.save"))	
 				
 				ev2, vals2 = codewindow.Read()  
 
@@ -289,9 +299,8 @@ while True:
 				else:
 					print("no way out!")
 		else:
-			print("Not so nice!")
-			#layout2 = [[sg.Text('Window 2')],
-                #   [sg.Button('Exit')]]
+			print(event)
+
 		
 	
 window.close()

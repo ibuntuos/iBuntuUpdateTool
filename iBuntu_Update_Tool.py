@@ -124,7 +124,7 @@ while True:
 		window.Element('Textlabel_8').update('')
 		window.Element('Textlabel_9').update('Press \'OK\' to save your package-List ')
 		window.Element('Textlabel_10').update('for Restoring it after the Uprade/Update.')
-		window.Element('Textlabel_11').update(')
+		window.Element('Textlabel_11').update('')
 		window.Element('Textlabel_12').update('')
 		window.Element('Textlabel_13').update('')
 

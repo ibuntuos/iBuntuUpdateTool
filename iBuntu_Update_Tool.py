@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 #	(c) 2020 by iBuntu OS
-# 	07/10/2020 
-#	Tool for Helping with Update or Upgrade iBuntu to new version 
+# 	07/10/2020
+#	Tool for Helping with Update or Upgrade iBuntu to new version
 
 
 import PySimpleGUI as sg
@@ -10,15 +10,15 @@ import os
 import packagelist
 import subprocess
 
-sg.theme('LightBlue6')
+sg.theme('LightGrey')
 WorkPath=os.path.dirname(os.path.realpath(__file__))
-#WorkPath=os.path.dirname(WorkPath)	
+#WorkPath=os.path.dirname(WorkPath)
 
 
 #Define Layouts for Frames
 frame_layout = [
                   [sg.T('')],
-                  [sg.T('1.'), sg.Radio('Backup your system', "RADIO1", enable_events=True, key='Backup')], 
+                  [sg.T('1.'), sg.Radio('Backup your system', "RADIO1", enable_events=True, key='Backup')],
                   [sg.T('')],
                   [sg.T('2.'),sg.Radio('Save your Packages', "RADIO1", enable_events=True, key='Save')],
                   [sg.T('')],
@@ -50,28 +50,19 @@ frame_layout_Text = [
                   [sg.T('				', key='Textlabel_14')],
                ]
 
-    
+
 #Define Colums of Labels
-colHeader = [[sg.Image(r''+WorkPath+'/UpdateLogo.png'), sg.Text('iBuntu Update Tool', font=("SF Compact Display", 25), text_color='black'), sg.Image(r''+WorkPath+'/update-icon-18.png')]]
-colClose = [[sg.Text('			') , sg.Button('Close'), sg.Text('			')]]    
-colClose = [[sg.Text('			') , sg.Button('Close'), sg.Text('			')]]    
-colCopy = [[sg.Text('			') , sg.Text('© 2020  iBuntu OS', font=("Helvetica", 9)), sg.Text('			')]]   
-colURL = [[sg.Text('			') , sg.Text('   iBuntuos.com', font=("Helvetica", 9)), sg.Text('		')]] 
- 
+colHeader = [[sg.Image(r''+WorkPath+'/UpdateLogo.png'), sg.Text('iBuntu Update Tool', font=("SF Compact Display", 18), text_color='black'), sg.Image(r''+WorkPath+'/update-icon-18.png')]]
+colClose = [[sg.Text('© 2020  iBuntu OS', font=("Helvetica", 9)),sg.Text('   iBuntuos.com', font=("Helvetica", 9)),sg.Button('Close')]]
+
 
 
 #Define Main Window-Layout
 layout = [
-          [sg.T('')],
           [sg.Column(colHeader)],
-          [sg.T('')],
-          [sg.Frame('Options', frame_layout, font='Any 12', title_color='blue'),sg.Text('	'), sg.Frame('Guide', frame_layout_Text, font='Any 12', title_color='blue')],
-          [sg.T('')],
+          [sg.Frame('Options', frame_layout, font='Any 9', title_color='blue'), sg.Frame('Guide', frame_layout_Text, font='Any 9', title_color='blue')],
           [sg.Column(colClose)],
-          [sg.T('')],
-          [sg.Column(colCopy)],
-          [sg.Column(colURL)],
-         ] 
+         ]
 
 
 #Define Output-Window-Layout
@@ -79,12 +70,12 @@ layout2 = [
 		[sg.Multiline(size=(60, 20), background_color='#A2D2FF', text_color='white', key='textbox')],
 		[sg.Button('Close Window')]
           ]
-	
- 
+
+
 
 #Initialize the whole thing
 
-window = sg.Window('iBuntu Update Tool', layout, font=("Helvetica", 12), finalize=True)
+window = sg.Window('iBuntu Update Tool', layout, font=("Helvetica", 12), size=(600, 600), finalize=True)
 window.Element('Textlabel_4').update('This tool is for helping you')
 window.Element('Textlabel_5').update('migrate Your System safely from one')
 window.Element('Textlabel_6').update('Version to another.')
@@ -97,13 +88,13 @@ run=1
 
 
 while True:
-	event, values = window.read() 
+	event, values = window.read()
 
 	if event == sg.WIN_CLOSED or 'Close' in event:
-		break      
+		break
 
 
-#Changing the Information-Tab according to choosen Radiobutton	
+#Changing the Information-Tab according to choosen Radiobutton
 
 	if event == 'Backup':
 		window.Element('Textlabel_1').update('')
@@ -237,17 +228,22 @@ while True:
 				f.close()
 				codewindow['textbox'].print("--------------------------------------------------------")
 				if os.path.exists(os.path.join(WorkPath, "packages.list.save")):
-					codewindow['textbox'].print("Package List saved successfully. Please close the window")
+					codewindow['textbox'].print("Package List saved successfully.")
+					codewindow['textbox'].print("Now we save your Snaps and Apps.")
+					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
+					codewindow['textbox'].print("After you are done and the Terminal has closed again")
+					codewindow['textbox'].print("the Saving is Completed. Than you can close this window.")
+					os.system("gnome-terminal -- sh "+os.path.join(WorkPath, "backup.sh"))
 					codewindow['textbox'].print("========================================================")
 				else:
 					codewindow['textbox'].print("[ERROR]: Package List was NOT created successfully!!")
-					codewindow['textbox'].print("========================================================")			
+					codewindow['textbox'].print("========================================================")
 
-				ev2, vals2 = codewindow.Read()  
+				ev2, vals2 = codewindow.Read()
 
-            			
+
 				if ev2 == sg.WIN_CLOSED or ev2 == 'Close Window':
-					codewindow.Hide()  
+					codewindow.Hide()
 				else:
 					print("no way out!")
 
@@ -258,13 +254,14 @@ while True:
 		if values['Bootstick'] == True:
 			systemversion=(subprocess.check_output("lsb_release -d | cut -c 21-23" , shell=True, universal_newlines=True)).strip()
 			systemversion = systemversion.replace(".", "")
+			print(systemversion)
 			if int(systemversion) < 13:
 				browser.open('https://www.balena.io/etcher/', new=2)
 			else:
 				os.system("/etc/balena_etcher/balenaEtcher-1.5.101-x64.AppImage")
-		
+
 		if values['Update'] == True:
-			browser.open_new(r'file://'+WorkPath+'/iBuntuUpdateTool_Guide.pdf')	
+			browser.open_new(r'file://'+WorkPath+'/iBuntuUpdateTool_Guide.pdf')
 
 		if values['Restore'] == True:
 			if run ==1:
@@ -284,23 +281,24 @@ while True:
 				else:
 					codewindow['textbox'].print("--------------------------------------------------------")
 					codewindow['textbox'].print("Packagelist found - Restoring started.")
-					result=os.system("gnome-terminal -- xargs -a '"+os.path.join(WorkPath, "packages.list.save")+"' sudo apt install")
+					os.system("gnome-terminal -- sh "+os.path.join(WorkPath, "restore.sh"))
+					#os.system("gnome-terminal -- xargs -a '"+os.path.join(WorkPath, "packages.list.save")+"' sudo apt install")
 					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
 					codewindow['textbox'].print("After you are done and the Terminal has closed again")
 					codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")
-					codewindow['textbox'].print("========================================================")	
-					os.remove(os.path.join(WorkPath, "packages.list.save"))	
-				
-				ev2, vals2 = codewindow.Read()  
+					codewindow['textbox'].print("========================================================")
+					os.remove(os.path.join(WorkPath, "packages.list.save"))
 
-            			
+				ev2, vals2 = codewindow.Read()
+
+
 				if ev2 == sg.WIN_CLOSED or ev2 == 'Close Window':
-					codewindow.Hide()  
+					codewindow.Hide()
 				else:
 					print("no way out!")
 		else:
 			print(event)
 
-		
-	
+
+
 window.close()

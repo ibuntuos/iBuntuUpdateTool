@@ -8,21 +8,33 @@ From iBuntu Version 1.3 the iBuntu Update Tool will be fully integrated within t
 If you have a Version lower than 1.3 you first need to download it from here.
 
 just click on “Code” and than “Download ZIP”.
-After that you just extract the folder to your desktop and than press
+After that you just extract the folder to your desktop.
+
+Than, just open the downloaded folder and run the script
 
 ```
-ALT + CTRL + T
+iBuntu_Update_Tool_start.sh
 ```
-to open a new Terminal Console. There you enter follwoing command (you can copy it here and insert it in the terminal with a right click and selecting “paste”):
+
+It's very likely a Terminal will Pop-up and tells you
+
+```
+iBuntu Update Tool could not load we try to install missing dependencies
+After this window closes just open the app again."
+========================================================================
+Installing: python3-tk, python3-pip and PySimpleGui:
+```
+
+This will install the neccessary dependencies and after that you just restart the Program and it should come up.
+
+
+If you like to install the needed dependencies by yourself, enter follwoing commands to your terminal:
+
 ```
 sudo apt install python3-pip python3-tk -y
 pip3 install pysimplegui
 ```
 
-This will install the necessarry dependencies for the program. After that, just open the downloaded folder and run the script
-```
-iBuntu_Update_Tool_start.sh
-```
-Than the program should come up.
 
+Important:
 Of course you can use this tool on any other Ubuntu-Version as well but than I give no guarantee or support for it since this Software was especially designed for iBuntu.

@@ -114,19 +114,19 @@ while True:
 
 
 	if event == 'Save':
-		window.Element('Textlabel_1').update('Because you will lose the software you')
-		window.Element('Textlabel_2').update('installed manually since you are using')
-		window.Element('Textlabel_3').update('iBuntu you need to create a list')
-		window.Element('Textlabel_4').update('of all packages you added yourself')
-		window.Element('Textlabel_5').update('since you installed iBuntu before.')
-		window.Element('Textlabel_6').update('')
-		window.Element('Textlabel_7').update('If you installed additional programs')
-		window.Element('Textlabel_8').update('not only via App-Store or with apt-get')
-		window.Element('Textlabel_9').update('you will need to manually save all your')
-		window.Element('Textlabel_10').update('".deb" Files in your Home-Directory')
-		window.Element('Textlabel_11').update('by yourself.')
-		window.Element('Textlabel_12').update('Press \'OK\' to save your package-List ')
-		window.Element('Textlabel_13').update('for Restoring it after the Uprade/Update.')
+		window.Element('Textlabel_1').update('')
+		window.Element('Textlabel_2').update('')
+		window.Element('Textlabel_3').update('Because you will lose the software you')
+		window.Element('Textlabel_4').update('installed manually since you are using')
+		window.Element('Textlabel_5').update('iBuntu you need to create a list')
+		window.Element('Textlabel_6').update('of all packages you added yourself')
+		window.Element('Textlabel_7').update('since you installed iBuntu before.')
+		window.Element('Textlabel_8').update('')
+		window.Element('Textlabel_9').update('Press \'OK\' to save your package-List ')
+		window.Element('Textlabel_10').update('for Restoring it after the Uprade/Update.')
+		window.Element('Textlabel_11').update(')
+		window.Element('Textlabel_12').update('')
+		window.Element('Textlabel_13').update('')
 
 
 
@@ -176,7 +176,7 @@ while True:
 		window.Element('Textlabel_9').update('')
 		window.Element('Textlabel_10').update('You also can watch our video Tutorial')
 		window.Element('Textlabel_11').update('The Link you find at the Top of the')
-		window.Element('Textlabel_12').update('Written Guide.')
+		window.Element('Textlabel_12').update('written Guide.')
 		window.Element('Textlabel_13').update('Like this you won\'t loose your data')
 		window.Element('Textlabel_14').update('in the process.')
 
@@ -186,15 +186,15 @@ while True:
 		window.Element('Textlabel_3').update('your settings for them so don\'t worry.')
 		window.Element('Textlabel_4').update('You only need to restore the packages')
 		window.Element('Textlabel_5').update('Than all your programs and settings ')
-		window.Element('Textlabel_6').update('Will be back.')
+		window.Element('Textlabel_6').update('will be back.')
 		window.Element('Textlabel_7').update('')
-		window.Element('Textlabel_8').update('Only if you installed software with' )
-		window.Element('Textlabel_9').update('".deb"-Files or additional sources, you')
-		window.Element('Textlabel_10').update('will need to install them manually.')
+		window.Element('Textlabel_8').update('just click \'OK \' and all' )
+		window.Element('Textlabel_9').update('your manually installed programs')
+		window.Element('Textlabel_10').update('will be restored by this tool.')
 		window.Element('Textlabel_11').update('')
-		window.Element('Textlabel_12').update('Otherwise just click \'OK \' and all')
-		window.Element('Textlabel_13').update('your manually installed programs')
-		window.Element('Textlabel_14').update('will be restored by this tool.')
+		window.Element('Textlabel_12').update('')
+		window.Element('Textlabel_13').update('')
+		window.Element('Textlabel_14').update('')
 
 
 

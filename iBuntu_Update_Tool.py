@@ -233,7 +233,7 @@ while True:
 					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
 					codewindow['textbox'].print("After you are done and the Terminal has closed again")
 					codewindow['textbox'].print("the Saving is Completed. Than you can close this window.")
-					os.system("gnome-terminal -- sh "+os.path.join(WorkPath, "backup.sh"))
+					os.system("gnome-terminal -- python3 "+os.path.join(WorkPath, "backup.py"))
 					codewindow['textbox'].print("========================================================")
 				else:
 					codewindow['textbox'].print("[ERROR]: Package List was NOT created successfully!!")
@@ -281,13 +281,12 @@ while True:
 				else:
 					codewindow['textbox'].print("--------------------------------------------------------")
 					codewindow['textbox'].print("Packagelist found - Restoring started.")
-					os.system("gnome-terminal -- sh "+os.path.join(WorkPath, "restore.sh"))
-					#os.system("gnome-terminal -- xargs -a '"+os.path.join(WorkPath, "packages.list.save")+"' sudo apt install")
+					os.system("gnome-terminal -- python3 "+os.path.join(WorkPath, "restore.py"))
 					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
 					codewindow['textbox'].print("After you are done and the Terminal has closed again")
 					codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")
 					codewindow['textbox'].print("========================================================")
-					os.remove(os.path.join(WorkPath, "packages.list.save"))
+
 
 				ev2, vals2 = codewindow.Read()
 

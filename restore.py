@@ -3,6 +3,8 @@ import os
 import glob
 import tarfile
 import time
+import copy
+
 
 path=os.path.dirname(os.path.realpath(__file__))
 print("============================================================================")
@@ -13,12 +15,40 @@ print("=========================================================================
 #Restore Snaps
 print("Restore Snaps")
 time.sleep(2)
-os.system("sudo chmod -R 777 "+path+"/Backup")
-snapversion=os.listdir(path+"/Backup/Snaps")
-#snapversion=snapversion.sort()
-snapversion=snapversion[-1].split("_")[0]
-os.system("sudo cp -R "+path+"/Backup/Snaps/* /var/lib/snapd/snapshots/")
-os.system("sudo snap restore " +snapversion)
+os.system("sudo snap list > "+path+"/snappackage_new.save.list")
+snaplist=[]
+snaplist2=[]
+snaplist3=[]
+with open(path+"/snappackage.save.list") as fp:
+   line = fp.readline()
+   cnt = 1
+   while line:
+       line=line.split("    ")
+       snaplist.append(line[0])
+       line = fp.readline()
+snaplist.pop(0)
+
+#Restorelist
+with open(path+"/snappackage_new.save.list") as fp2:
+   line2 = fp2.readline()
+   cnt2 = 1
+   while line2:
+       line2=line2.split("    ")
+       snaplist2.append(line2[0])
+       line2 = fp2.readline()
+snaplist2.pop(0)
+
+snaplist3=copy.copy(snaplist)
+for snappy in snaplist:
+    for newsnap in snaplist2:
+        if snappy == newsnap:
+            snaplist3.remove(snappy)
+
+#Restoring
+for snapprog in snaplist3:
+    os.system("sudo snap install " +snapprog)
+
+
 print("============================================================================")
 #Restore Manual installed .deb Files
 print("Restore manual installed .deb Files")

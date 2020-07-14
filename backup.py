@@ -23,14 +23,7 @@ print("=========================================================================
 #Backup Snaps
 print("Backup snaps")
 time.sleep(2)
-snapversion=(subprocess.check_output("sudo snap save" , shell=True, universal_newlines=True)).strip()
-snapversion = snapversion.split("#")
-snapversion = snapversion[1]
-snapversion = snapversion.split()
-os.system("sudo chmod -R 755 /var/lib/snapd/snapshots")
-os.system("sudo cp -R /var/lib/snapd/snapshots/"+snapversion[0]+"* "+path+"/Backup/Snaps/")
-
-
+os.system("sudo snap list > "+path+"/snappackage.save.list")
 
 #Backup .debs and sources
 print("=========================================================================")

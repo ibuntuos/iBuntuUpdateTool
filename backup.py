@@ -27,7 +27,7 @@ os.system("sudo snap list > "+path+"/snappackage.save.list")
 
 #Backup .debs and sources
 print("=========================================================================")
-print("Backup debs und sources")
+print("Backup debs and sources")
 print("Be patient, this will take a while")
 print("First we create a backup with apt-clone")
 time.sleep(2)
@@ -50,12 +50,20 @@ for file in glob.glob(path+"/Backup/apt-clone-*"):
         tarinfo for tarinfo in tar.getmembers()
             if tarinfo.name.startswith("./var/lib/apt-clone/debs")
         ]
+
+        subdir_and_files_keys = [
+        tarinfo for tarinfo in tar.getmembers()
+            if tarinfo.name.startswith("./etc/apt/trusted.gpg.d")
+        ]
+
         tar.extractall(path=path+"/Backup/apt-clone/", members=subdir_and_files_sources)
         tar.extractall(path=path+"/Backup/apt-clone/", members=subdir_and_files_debs)
+        tar.extractall(path=path+"/Backup/apt-clone/", members=subdir_and_files_keys)
 
 
 debs=os.listdir(path+"/Backup/apt-clone/var/lib/apt-clone/debs/")
-#Datei einlesen
+
+#Find Matches
 packagelist=[]
 filepath = path+"/packages.list.save"
 with open(filepath) as fp:
@@ -73,6 +81,8 @@ for debfile in debs:
             os.system("sudo cp -R "+path+"/Backup/apt-clone/var/lib/apt-clone/debs/"+debfile+" "+path+"/Backup/debs/")
 
 os.system("sudo cp -R "+path+"/Backup/apt-clone/etc/apt/sources.list.d/ "+path+"/Backup/sources/")
+os.system("sudo cp -R "+path+"/Backup/apt-clone/etc/apt/trusted.gpg.d/ "+path+"/Backup/sources/")
+os.system("sudo rm -R "+path+"/Backup/apt-clone-*")
 os.system("sudo rm -R "+path+"/Backup/apt-clone/")
 print("============================================================================")
 print("Backup of your programs complete. Please press any key to close this window")

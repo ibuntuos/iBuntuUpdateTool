@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 #	(c) 2020 by iBuntu OS
 # 	07/10/2020
 #	Tool for Helping with Update or Upgrade iBuntu to new version
@@ -13,7 +13,7 @@ import subprocess
 sg.theme('LightGrey')
 WorkPath=os.path.dirname(os.path.realpath(__file__))
 #WorkPath=os.path.dirname(WorkPath)
-
+iconpic=WorkPath+'/update-icon-18.png'
 
 #Define Layouts for Frames
 frame_layout = [
@@ -75,7 +75,7 @@ layout2 = [
 
 #Initialize the whole thing
 
-window = sg.Window('iBuntu Update Tool', layout, font=("Helvetica", 12), size=(600, 600), finalize=True)
+window = sg.Window('iBuntu Update Tool', layout, icon=iconpic, font=("Helvetica", 12), size=(600, 600), finalize=True)
 window.Element('Textlabel_4').update('This tool is for helping you')
 window.Element('Textlabel_5').update('migrate Your System safely from one')
 window.Element('Textlabel_6').update('Version to another.')

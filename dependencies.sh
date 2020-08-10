@@ -6,3 +6,4 @@ echo "Installing: python3-tk, python3-pip and PySimpleGui:"
 sudo apt update
 sudo apt install python3-tk python3-pip -y
 pip3 install pysimplegui
+sudo pip3 install pysimplegui

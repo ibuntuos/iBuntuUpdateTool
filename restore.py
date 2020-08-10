@@ -6,7 +6,8 @@ import time
 import copy
 
 
-path=os.path.dirname(os.path.realpath(__file__))
+#path=os.path.dirname(os.path.realpath(__file__))
+path=os.environ['HOME']
 print("============================================================================")
 os.system("echo 'We try now to restore your previously saved programs and settings'")
 os.system("echo for this we need Access to your File-System.")

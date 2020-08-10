@@ -9,11 +9,22 @@ import webbrowser as browser
 import os
 import packagelist
 import subprocess
+import desk_environment
 
 sg.theme('LightGrey')
 WorkPath=os.path.dirname(os.path.realpath(__file__))
 #WorkPath=os.path.dirname(WorkPath)
-iconpic=WorkPath+'/update-icon-18.png'
+
+konsolecommand="gnome-terminal --"
+print(desk_environment.detect_desktop_environment())
+#set konsole command according to system
+if not desk_environment.detect_desktop_environment() == "gnome":
+	konsolecommand="konsole -e"
+winicon=WorkPath+'/update-icon-18.png'
+print(konsolecommand)
+
+
+Backuppath=os.environ['HOME']
 
 #Define Layouts for Frames
 frame_layout = [
@@ -75,7 +86,7 @@ layout2 = [
 
 #Initialize the whole thing
 
-window = sg.Window('iBuntu Update Tool', layout, icon=iconpic, font=("Helvetica", 12), size=(600, 600), finalize=True)
+window = sg.Window('iBuntu Update Tool', layout, font=("Helvetica", 12), icon=winicon, size=(600, 600), finalize=True)
 window.Element('Textlabel_4').update('This tool is for helping you')
 window.Element('Textlabel_5').update('migrate Your System safely from one')
 window.Element('Textlabel_6').update('Version to another.')
@@ -207,7 +218,7 @@ while True:
 
 		if values['Save'] == True:
 			if run ==1:
-				codewindow = sg.Window('Packagerestore', layout2, font=("Helvetica", 12), finalize=True)
+				codewindow = sg.Window('Packagerestore', layout2, font=("Helvetica", 12), icon=winicon, finalize=True)
 
 			else:
 				run=1
@@ -215,25 +226,27 @@ while True:
 
 			while True and run ==1:
 				run=2
+				os.system("mkdir "+Backuppath)
 				packages=packagelist.packagelist()
 				codewindow['textbox'].update('')
 				codewindow['textbox'].print(WorkPath)
 				codewindow['textbox'].print("A Backup of your manually installed packages is created.")
 				codewindow['textbox'].print("--------------------------------------------------------")
 				codewindow['textbox'].print("Following manually installed packages exist:")
-				f=open(os.path.join(WorkPath, "packages.list.save"),'w')
+				f=open(os.path.join(Backuppath, "packages.list.save"),'w')
 				for ele in packages:
 					f.write(ele+'\n')
 					codewindow['textbox'].print(ele)
 				f.close()
 				codewindow['textbox'].print("--------------------------------------------------------")
-				if os.path.exists(os.path.join(WorkPath, "packages.list.save")):
+				if os.path.exists(os.path.join(Backuppath, "packages.list.save")):
 					codewindow['textbox'].print("Package List saved successfully.")
 					codewindow['textbox'].print("Now we save your Snaps and Apps.")
 					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
 					codewindow['textbox'].print("After you are done and the Terminal has closed again")
 					codewindow['textbox'].print("the Saving is Completed. Than you can close this window.")
-					os.system("gnome-terminal -- python3 "+os.path.join(WorkPath, "backup.py"))
+					print(konsolecommand+" python3 "+os.path.join(WorkPath, "backup.py"))
+					os.popen(konsolecommand+" python3 "+os.path.join(WorkPath, "backup.py"))
 					codewindow['textbox'].print("========================================================")
 				else:
 					codewindow['textbox'].print("[ERROR]: Package List was NOT created successfully!!")
@@ -274,14 +287,15 @@ while True:
 			while True and run ==1:
 				run=2
 				codewindow['textbox'].update('')
-				if not os.path.exists(os.path.join(WorkPath, "packages.list.save")):
+				if not os.path.exists(os.path.join(Backuppath, "packages.list.save")):
 					codewindow['textbox'].print("--------------------------------------------------------")
 					codewindow['textbox'].print('Sorry: No previously saved Package-List found.')
 					codewindow['textbox'].print("--------------------------------------------------------")
 				else:
 					codewindow['textbox'].print("--------------------------------------------------------")
 					codewindow['textbox'].print("Packagelist found - Restoring started.")
-					os.system("gnome-terminal -- python3 "+os.path.join(WorkPath, "restore.py"))
+					print(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
+					os.popen(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
 					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
 					codewindow['textbox'].print("After you are done and the Terminal has closed again")
 					codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")

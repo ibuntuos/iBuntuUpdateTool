@@ -56,7 +56,15 @@ time.sleep(2)
 os.system("sudo cp -R "+path+"/Backup/sources/sources.list.d/* /etc/apt/sources.list.d/")
 os.system("sudo cp -R "+path+"/Backup/sources/trusted.gpg.d/* /etc/apt/trusted.gpg.d/")
 os.system("sudo apt clean")
+os.system("sudo apt autoclean")
 os.system("sudo apt update")
+os.system("sudo apt full-upgrade -y")
+print("============================================================================")
+#Restore Packaes
+print("Restore Packages")
+time.sleep(2)
+os.system("sudo xargs -a '"+os.path.join(path, "packages.list.save")+"' sudo apt install -y")
+
 print("============================================================================")
 #Restore Manual installed .deb Files
 print("Restore manual installed .deb Files")
@@ -65,13 +73,6 @@ debs=os.listdir(path+"/Backup/debs")
 os.chdir(path+"/Backup/debs")
 for files in debs:
     os.system("sudo dpkg -i "+files)
-
-print("============================================================================")
-#Restore Rest
-print("Restore Packages")
-time.sleep(2)
-os.system("sudo xargs -a '"+os.path.join(path, "packages.list.save")+"' sudo apt install -y")
-
 print("============================================================================")
 print("Restore complete. Please press any key to close this window")
 programPause = input("and return to the iBuntu Update Tool")

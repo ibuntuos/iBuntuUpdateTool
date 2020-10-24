@@ -125,19 +125,20 @@ while True:
 
 
 	if event == 'Save':
-		window.Element('Textlabel_1').update('')
-		window.Element('Textlabel_2').update('')
-		window.Element('Textlabel_3').update('Because you will lose the software you')
-		window.Element('Textlabel_4').update('installed manually since you are using')
-		window.Element('Textlabel_5').update('iBuntu you need to create a list')
-		window.Element('Textlabel_6').update('of all packages you added yourself')
-		window.Element('Textlabel_7').update('since you installed iBuntu before.')
-		window.Element('Textlabel_8').update('')
-		window.Element('Textlabel_9').update('Press \'OK\' to save your package-List ')
-		window.Element('Textlabel_10').update('for Restoring it after the Uprade/Update.')
-		window.Element('Textlabel_11').update('')
-		window.Element('Textlabel_12').update('')
+		window.Element('Textlabel_1').update('Because you will lose the software you')
+		window.Element('Textlabel_2').update('installed manually since you are using')
+		window.Element('Textlabel_3').update('iBuntu you need to backup your userdata')
+		window.Element('Textlabel_4').update('')
+		window.Element('Textlabel_5').update('Press \'OK\' to save your Home-Folder')
+		window.Element('Textlabel_6').update('for restoring it after the Uprade/Update.')
+		window.Element('Textlabel_7').update('')
+		window.Element('Textlabel_8').update('Please save the Migrator_Backup.7z')
+		window.Element('Textlabel_9').update('which will be created in your ')
+		window.Element('Textlabel_10').update('Home Folder after this Step is')
+		window.Element('Textlabel_11').update('finnished.')
+		window.Element('Textlabel_12').update('Save it to an external harddrive.')
 		window.Element('Textlabel_13').update('')
+		window.Element('Textlabel_14').update('')
 
 
 
@@ -192,19 +193,19 @@ while True:
 		window.Element('Textlabel_14').update('in the process.')
 
 	if event == 'Restore':
-		window.Element('Textlabel_1').update('After the Upgrade/Update you manually')
-		window.Element('Textlabel_2').update('installed programs are gone - but not')
-		window.Element('Textlabel_3').update('your settings for them so don\'t worry.')
-		window.Element('Textlabel_4').update('You only need to restore the packages')
-		window.Element('Textlabel_5').update('Than all your programs and settings ')
-		window.Element('Textlabel_6').update('will be back.')
-		window.Element('Textlabel_7').update('')
-		window.Element('Textlabel_8').update('just click \'OK \' and all' )
-		window.Element('Textlabel_9').update('your manually installed programs')
+		window.Element('Textlabel_1').update('After the Installation is done all your')
+		window.Element('Textlabel_2').update('data and programs are gone at first.')
+		window.Element('Textlabel_3').update('Please copy your Migrator_Backup.7z')
+		window.Element('Textlabel_4').update('from your external harddrive into your')
+		window.Element('Textlabel_5').update('Home Folder.')
+		window.Element('Textlabel_6').update('')
+		window.Element('Textlabel_7').update('After that just run this step.')
+		window.Element('Textlabel_8').update('' )
+		window.Element('Textlabel_9').update('Your data and manually installed programs')
 		window.Element('Textlabel_10').update('will be restored by this tool.')
 		window.Element('Textlabel_11').update('')
-		window.Element('Textlabel_12').update('')
-		window.Element('Textlabel_13').update('')
+		window.Element('Textlabel_12').update('If it does not work at first check the')
+		window.Element('Textlabel_13').update('Guide from Step 5 for further instructions.')
 		window.Element('Textlabel_14').update('')
 
 
@@ -265,13 +266,7 @@ while True:
 			browser.open('https://ibuntuos.com/get-it', new=2)
 
 		if values['Bootstick'] == True:
-			systemversion=(subprocess.check_output("lsb_release -d | cut -c 21-23" , shell=True, universal_newlines=True)).strip()
-			systemversion = systemversion.replace(".", "")
-			print(systemversion)
-			if int(systemversion) < 13:
-				browser.open('https://www.balena.io/etcher/', new=2)
-			else:
-				os.system("/etc/balena_etcher/balenaEtcher-1.5.101-x64.AppImage")
+			os.system(WorkPath+"/balenaEtcher-1.5.109-x64.AppImage")
 
 		if values['Update'] == True:
 			browser.open_new(r'file://'+WorkPath+'/iBuntuUpdateTool_Guide.pdf')

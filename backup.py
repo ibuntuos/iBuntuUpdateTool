@@ -7,6 +7,7 @@ import time
 
 #path=os.path.dirname(os.path.realpath(__file__))
 path=os.environ['HOME']
+current_user=os.environ.get('USER')
 print("============================================================================")
 os.system("echo 'We try now to backup your packages, sourcelists and snaps'")
 os.system("echo for this we need Access to your File-System.")
@@ -85,6 +86,12 @@ os.system("sudo cp -R "+path+"/Backup/apt-clone/etc/apt/sources.list.d/ "+path+"
 os.system("sudo cp -R "+path+"/Backup/apt-clone/etc/apt/trusted.gpg.d/ "+path+"/Backup/sources/")
 os.system("sudo rm -R "+path+"/Backup/apt-clone-*")
 os.system("sudo rm -R "+path+"/Backup/apt-clone/")
+print("============================================================================")
+#Zip Home-Folder for Migration
+print("Now we Zip the complete Home-Folder for the Migration")
+time.sleep(2)
+os.system("sudo 7z a -t7z -m0=lzma -mx=9 -mfb=64 -md=32m -ms=off -xr!.cache -xr!Migrator_Backup.7z "+path+"/Migrator_Backup.7z "+path+"/.")
+os.system("sudo chown "+current_user+":"+current_user+" "+path+"/Migrator_Backup.7z")
 print("============================================================================")
 print("Backup of your programs complete. Please press any key to close this window")
 programPause = input("and return to the iBuntu Update Tool")

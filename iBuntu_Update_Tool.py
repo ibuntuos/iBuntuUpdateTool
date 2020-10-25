@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #	(c) 2020 by iBuntu OS
 # 	07/10/2020
+#       V 2.0: 10/25/2020
 #	Tool for Helping with Update or Upgrade iBuntu to new version
 
 
@@ -130,7 +131,7 @@ while True:
 		window.Element('Textlabel_3').update('iBuntu you need to backup your userdata')
 		window.Element('Textlabel_4').update('')
 		window.Element('Textlabel_5').update('Press \'OK\' to save your Home-Folder')
-		window.Element('Textlabel_6').update('for restoring it after the Uprade/Update.')
+		window.Element('Textlabel_6').update('for restoring it after the Upgrade/Update.')
 		window.Element('Textlabel_7').update('')
 		window.Element('Textlabel_8').update('Please save the Migrator_Backup.7z')
 		window.Element('Textlabel_9').update('which will be created in your ')

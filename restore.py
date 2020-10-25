@@ -31,7 +31,17 @@ os.system("sudo chown -R "+current_user+":"+current_user+" "+path)
 
 
 #delete sync
-os.system("sudo rm -R /tmp/skelsync")
+os.system("sudo rm -R /tmp/homesync")
+print("============================================================================")
+#Restore sources
+print("Restore Sources and perform update")
+time.sleep(2)
+os.system("sudo cp -R "+path+"/Backup/sources/sources.list.d/* /etc/apt/sources.list.d/")
+os.system("sudo cp -R "+path+"/Backup/sources/trusted.gpg.d/* /etc/apt/trusted.gpg.d/")
+os.system("sudo apt clean")
+os.system("sudo apt autoclean")
+os.system("sudo apt update")
+os.system("sudo apt full-upgrade -y")
 print("============================================================================")
 #Restore Snaps
 print("Restore Snaps")
@@ -69,16 +79,6 @@ for snappy in snaplist:
 for snapprog in snaplist3:
     os.system("sudo snap install " +snapprog)
 
-print("============================================================================")
-#Restore sources
-print("Restore Sources and perform update")
-time.sleep(2)
-os.system("sudo cp -R "+path+"/Backup/sources/sources.list.d/* /etc/apt/sources.list.d/")
-os.system("sudo cp -R "+path+"/Backup/sources/trusted.gpg.d/* /etc/apt/trusted.gpg.d/")
-os.system("sudo apt clean")
-os.system("sudo apt autoclean")
-os.system("sudo apt update")
-os.system("sudo apt full-upgrade -y")
 print("============================================================================")
 #Restore Packaes
 print("Restore Packages")

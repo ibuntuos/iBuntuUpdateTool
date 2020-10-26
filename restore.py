@@ -27,11 +27,19 @@ os.system("sudo chown -R "+current_user+":"+current_user+" /tmp/homesync")
 #rsync files from live system to home
 print("rsync files from live system to home")
 os.system("sudo rsync --archive --update --progress /tmp/homesync/ "+path+"/")
-os.system("sudo chown -R "+current_user+":"+current_user+" "+path) 
+os.system("sudo chown -R "+current_user+":"+current_user+" "+path)
 
 
 #delete sync
 os.system("sudo rm -R /tmp/homesync")
+print("============================================================================")
+#Restore Manual installed .deb Files
+print("Restore manual installed .deb Files")
+time.sleep(2)
+debs=os.listdir(path+"/Backup/debs")
+os.chdir(path+"/Backup/debs")
+for files in debs:
+    os.system("sudo dpkg -i "+files)
 print("============================================================================")
 #Restore sources
 print("Restore Sources and perform update")
@@ -41,7 +49,7 @@ os.system("sudo cp -R "+path+"/Backup/sources/trusted.gpg.d/* /etc/apt/trusted.g
 os.system("sudo apt clean")
 os.system("sudo apt autoclean")
 os.system("sudo apt update")
-os.system("sudo apt full-upgrade -y")
+os.system("sudo apt upgrade -y")
 print("============================================================================")
 #Restore Snaps
 print("Restore Snaps")
@@ -84,15 +92,6 @@ print("=========================================================================
 print("Restore Packages")
 time.sleep(2)
 os.system("sudo xargs -a '"+os.path.join(path, "packages.list.save")+"' sudo apt install -y")
-
-print("============================================================================")
-#Restore Manual installed .deb Files
-print("Restore manual installed .deb Files")
-time.sleep(2)
-debs=os.listdir(path+"/Backup/debs")
-os.chdir(path+"/Backup/debs")
-for files in debs:
-    os.system("sudo dpkg -i "+files)
 print("============================================================================")
 print("Restore complete. Please press any key to close this window")
 programPause = input("and return to the iBuntu Update Tool")

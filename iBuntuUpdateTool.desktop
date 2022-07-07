@@ -1,0 +1,6 @@
+[Desktop Entry]
+Name=iBuntu Uodate Tool
+Exec=python3 "/usr/lib/iBuntuUpdateTool/run.py"
+Icon=/usr/lib/iBuntuUpdateTool/update-icon-18.jpg
+Terminal=false
+Type=Application

@@ -2,6 +2,7 @@
 #	(c) 2020 by iBuntu OS
 # 	07/10/2020
 #       V 2.0: 10/25/2020
+#	V 2.1: 07/13/2022
 #	Tool for Helping with Update or Upgrade iBuntu to new version
 
 
@@ -283,19 +284,19 @@ while True:
 			while True and run ==1:
 				run=2
 				codewindow['textbox'].update('')
-				if not os.path.exists(os.path.join(Backuppath, "packages.list.save")):
-					codewindow['textbox'].print("--------------------------------------------------------")
-					codewindow['textbox'].print('Sorry: No previously saved Package-List found.')
-					codewindow['textbox'].print("--------------------------------------------------------")
-				else:
-					codewindow['textbox'].print("--------------------------------------------------------")
-					codewindow['textbox'].print("Packagelist found - Restoring started.")
-					print(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
-					os.popen(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
-					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
-					codewindow['textbox'].print("After you are done and the Terminal has closed again")
-					codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")
-					codewindow['textbox'].print("========================================================")
+				#if not os.path.exists(os.path.join(Backuppath, "packages.list.save")):
+				#	codewindow['textbox'].print("--------------------------------------------------------")
+				#	codewindow['textbox'].print('Sorry: No previously saved Package-List found.')
+				#	codewindow['textbox'].print("--------------------------------------------------------")
+				#else:
+				codewindow['textbox'].print("--------------------------------------------------------")
+				codewindow['textbox'].print("Packagelist found - Restoring started.")
+				print(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
+				os.popen(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
+				codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
+				codewindow['textbox'].print("After you are done and the Terminal has closed again")
+				codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")
+				codewindow['textbox'].print("========================================================")
 
 
 				ev2, vals2 = codewindow.Read()

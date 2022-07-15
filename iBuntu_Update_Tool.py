@@ -289,14 +289,14 @@ while True:
 					codewindow['textbox'].print('Sorry: No previously saved Migrator_Backup.7z found.')
 					codewindow['textbox'].print("--------------------------------------------------------")
 				else:
-				codewindow['textbox'].print("--------------------------------------------------------")
-				codewindow['textbox'].print("Packagelist found - Restoring started.")
-				print(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
-				os.popen(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
-				codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
-				codewindow['textbox'].print("After you are done and the Terminal has closed again")
-				codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")
-				codewindow['textbox'].print("========================================================")
+					codewindow['textbox'].print("--------------------------------------------------------")
+					codewindow['textbox'].print("Packagelist found - Restoring started.")
+					print(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
+					os.popen(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))
+					codewindow['textbox'].print("Follow the Instructions in the Popup-Terminal.")
+					codewindow['textbox'].print("After you are done and the Terminal has closed again")
+					codewindow['textbox'].print("the Restore is Completed. Than you can close this window.")
+					codewindow['textbox'].print("========================================================")
 
 
 				ev2, vals2 = codewindow.Read()

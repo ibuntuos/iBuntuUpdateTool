@@ -284,11 +284,11 @@ while True:
 			while True and run ==1:
 				run=2
 				codewindow['textbox'].update('')
-				#if not os.path.exists(os.path.join(Backuppath, "packages.list.save")):
-				#	codewindow['textbox'].print("--------------------------------------------------------")
-				#	codewindow['textbox'].print('Sorry: No previously saved Package-List found.')
-				#	codewindow['textbox'].print("--------------------------------------------------------")
-				#else:
+				if not os.path.exists(os.path.join(Backuppath, "Migrator_Backup.7z")):
+					codewindow['textbox'].print("--------------------------------------------------------")
+					codewindow['textbox'].print('Sorry: No previously saved Migrator_Backup.7z found.')
+					codewindow['textbox'].print("--------------------------------------------------------")
+				else:
 				codewindow['textbox'].print("--------------------------------------------------------")
 				codewindow['textbox'].print("Packagelist found - Restoring started.")
 				print(konsolecommand+" python3 "+os.path.join(WorkPath, "restore.py"))

@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-#	(c) 2020 by iBuntu OS
+#	(c) 2023 by iBuntu OS
 # 	07/10/2020
 #       V 2.0: 10/25/2020
 #	V 2.1: 07/13/2022
+#       V 2.2: 12/05/2023 (Update of Balena Etcher)
 #	Tool for Helping with Update or Upgrade iBuntu to new version
 
 
@@ -66,7 +67,7 @@ frame_layout_Text = [
 
 #Define Colums of Labels
 colHeader = [[sg.Image(r''+WorkPath+'/UpdateLogo.png'), sg.Text('iBuntu Update Tool', font=("SF Compact Display", 18), text_color='black'), sg.Image(r''+WorkPath+'/update-icon-18.png')]]
-colClose = [[sg.Text('© 2020  iBuntu OS', font=("Helvetica", 9)),sg.Text('   iBuntuos.com', font=("Helvetica", 9)),sg.Button('Close')]]
+colClose = [[sg.Text('© 2023  iBuntu OS', font=("Helvetica", 9)),sg.Text('   iBuntuos.com', font=("Helvetica", 9)),sg.Button('Close')]]
 
 
 
@@ -268,7 +269,7 @@ while True:
 			browser.open('https://ibuntuos.com/get-it', new=2)
 
 		if values['Bootstick'] == True:
-			os.system(WorkPath+"/balenaEtcher-1.5.109-x64.AppImage")
+			os.system(WorkPath+"/balenaEtcher-1.18.4-x64.AppImage")
 
 		if values['Update'] == True:
 			browser.open_new(r'file://'+WorkPath+'/iBuntuUpdateTool_Guide.pdf')
